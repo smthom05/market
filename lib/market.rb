@@ -51,11 +51,22 @@ class Market
   def sell(item, quantity)
     total_inventory_summary = total_inventory
     total_inventory_summary.each do |stocked_item, stocked_quantity|
-      if item != stocked_item || quantity > stocked_quantity
+      if item_is_available?(item)
+        if stocked_quantity > quantity
+          return true
+        else
+          return false
+        end
+      else
         return false
       end
     end
   end
+
+  def item_is_available?(item)
+    sorted_item_list.include?(item)
+  end
+
 
 end
 
