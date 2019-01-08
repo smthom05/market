@@ -23,15 +23,19 @@ class Market
   end
 
   def vendors_that_sell(item)
-    vendors_with_item = []
-    @vendors.each do |vendor|
-      vendor.inventory.each do |inventory_item, amount|
-        if inventory_item == item
-          vendors_with_item << vendor
-        end
-      end
+    @vendors.find_all do |vendor|
+      vendor.inventory.keys.include?(item)
     end
-    vendors_with_item
   end
+  #   vendors_with_item = []
+  #   @vendors.each do |vendor|
+  #     vendor.inventory.each do |inventory_item, amount|
+  #       if inventory_item == item
+  #         vendors_with_item << vendor
+  #       end
+  #     end
+  #   end
+  #   vendors_with_item
+  # end
 
 end
