@@ -49,19 +49,24 @@ class Market
   end
 
   def sell(item, quantity)
+    possible_vendors = vendors_that_sell(item)
     total_inventory_summary = total_inventory
     total_inventory_summary.each do |stocked_item, stocked_quantity|
       if item_is_available?(item)
         if stocked_quantity > quantity
-          @vendors.find do |vendor|
-            vendor.inventory[item] -= quantity if vendor.inventory.keys.include?(item) && vendor.inventory[item] > quantity
-            vendor.inventory[item] = 0 if vendor.inventory.keys.include?(item) && vendor.inventory[item] <= quantity
-
+          possible_vendors.each do |vendor|
+            if vendor.inventory[item] >= quantity
+              vendor.inventory[item] -= quantity
+            elsif vendor.inventory[item] < quantity
+              quantity = quantity - vendor.inventory[item]
+              vendor.inventory[item] = 0
+            end
           end
           return true
         else
           return false
         end
+
       else
         return false
       end
@@ -71,7 +76,6 @@ class Market
   def item_is_available?(item)
     sorted_item_list.include?(item)
   end
-
 
 end
 
