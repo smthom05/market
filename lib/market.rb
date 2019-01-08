@@ -27,6 +27,11 @@ class Market
       vendor.inventory.keys.include?(item)
     end
   end
+end
+
+  # OLD REFACTORED METHODS
+  
+  # def vendors_that_sell(item)
   #   vendors_with_item = []
   #   @vendors.each do |vendor|
   #     vendor.inventory.each do |inventory_item, amount|
@@ -37,5 +42,3 @@ class Market
   #   end
   #   vendors_with_item
   # end
-
-end
