@@ -27,10 +27,31 @@ class Market
       vendor.inventory.keys.include?(item)
     end
   end
+
+  def sorted_item_list
+    all_items_being_sold = []
+    @vendors.each do |vendor|
+      vendor.inventory.keys.each do |key|
+        all_items_being_sold << key
+      end
+    end
+    all_items_being_sold.sort.uniq
+  end
+
+  def total_inventory
+    total_inventory_summary = Hash.new(0)
+    @vendors.each do |vendor|
+      vendor.inventory.each do |item, quantity|
+        total_inventory_summary[item] += quantity
+      end
+    end
+    total_inventory_summary
+  end
+
 end
 
   # OLD REFACTORED METHODS
-  
+
   # def vendors_that_sell(item)
   #   vendors_with_item = []
   #   @vendors.each do |vendor|
