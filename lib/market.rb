@@ -53,6 +53,11 @@ class Market
     total_inventory_summary.each do |stocked_item, stocked_quantity|
       if item_is_available?(item)
         if stocked_quantity > quantity
+          @vendors.find do |vendor|
+            if vendor.inventory.keys.include?(item)
+              vendor.inventory[item] -= quantity
+            end
+          end
           return true
         else
           return false
