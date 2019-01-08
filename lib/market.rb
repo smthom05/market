@@ -66,7 +66,6 @@ class Market
         else
           return false
         end
-
       else
         return false
       end
