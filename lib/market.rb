@@ -54,9 +54,9 @@ class Market
       if item_is_available?(item)
         if stocked_quantity > quantity
           @vendors.find do |vendor|
-            if vendor.inventory.keys.include?(item)
-              vendor.inventory[item] -= quantity
-            end
+            vendor.inventory[item] -= quantity if vendor.inventory.keys.include?(item) && vendor.inventory[item] > quantity
+            vendor.inventory[item] = 0 if vendor.inventory.keys.include?(item) && vendor.inventory[item] <= quantity
+
           end
           return true
         else
