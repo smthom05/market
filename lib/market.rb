@@ -48,6 +48,15 @@ class Market
     total_inventory_summary
   end
 
+  def sell(item, quantity)
+    total_inventory_summary = total_inventory
+    total_inventory_summary.each do |stocked_item, stocked_quantity|
+      if item != stocked_item || quantity > stocked_quantity
+        return false
+      end
+    end
+  end
+
 end
 
   # OLD REFACTORED METHODS
